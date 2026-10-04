@@ -585,4 +585,9 @@ function init(){readHash();
  const sn=jget(K.snap,{})[snapKey()];if(sn){W=sn.W;sun=sn.sun||null;renderModels();renderDays();renderHourly();summary()}
  refresh()}
 init();
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+</script>
 </script></body></html>

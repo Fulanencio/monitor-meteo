@@ -47,71 +47,53 @@ footer{padding:26px 0 50px;color:var(--muted);font-size:.75rem;text-align:center
 .l-g{border-left:5px solid var(--green)}.l-y{border-left:5px solid var(--yellow)}.l-r{border-left:5px solid var(--red)}.l-n{border-left:5px solid #567}
 @media(max-width:850px){.g4{grid-template-columns:1fr 1fr}.g3,.g2{grid-template-columns:1fr}.links{grid-template-columns:1fr 1fr}}
 @media print{body{background:#fff;color:#111}.hero,section:not(#sumSec),footer{display:none!important}#sumText{border:0}.btn{display:none}}
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2196F3">
-<link rel="icon" type="image/png" href="./icon.png">
-<link rel="apple-touch-icon" href="./icon.png">
+.nav{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow-x:auto;padding:10px 2px;margin:0 0 6px;background:rgba(7,16,24,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav button{flex-shrink:0;background:#0f2635;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:.82rem;font-weight:700}
+.nav button.on{color:#fff;border-color:var(--ac);background:color-mix(in srgb,var(--ac) 22%,#0f2635)}
+.grp{margin:30px 0;border:1px solid var(--line);border-top:4px solid var(--ac);border-radius:22px;background:rgba(255,255,255,.025);padding:16px;scroll-margin-top:64px}
+.gh{display:flex;align-items:center;gap:14px;cursor:pointer;padding:2px 2px 14px;margin-bottom:14px;border-bottom:1px solid var(--line);user-select:none}
+.gn{width:38px;height:38px;border-radius:12px;background:var(--ac);color:#071018;font-weight:900;font-size:1.2rem;display:grid;place-items:center;flex-shrink:0}
+.gt{font-size:1.35rem;font-weight:800;letter-spacing:-.02em}.gh>div{flex:1}
+.gc{color:var(--muted);font-size:1.3rem;transition:transform .2s}.grp.col .gc{transform:rotate(-90deg)}
+.grp.col .gb{display:none}.grp.col .gh{border-bottom:0;margin-bottom:0;padding-bottom:2px}
+.gb{display:grid;gap:14px}.gb>section{margin:0}.gb>section.card{border-left:3px solid color-mix(in srgb,var(--ac) 55%,transparent)}
+@media print{.nav,.gh{display:none!important}.grp{border:0;background:none;padding:0;margin:0}}
+.gb{grid-template-columns:minmax(0,1fr)}.gb>section,.card{min-width:0;max-width:100%}
+.strip{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
 </style></head><body>
 <div class="container">
 <header class="hero"><div><div class="eyebrow">Monitor meteorológico</div><h1 id="pTitle">Caín</h1>
 <div class="muted">ECMWF · ICON · GFS · AEMET</div></div>
-<div class="badge"><strong id="lastUp">Sin actualizar</strong><div class="muted">última consulta</div></div></header>
+<div class="badge"><strong id="lastUp">Sin actualizar</strong><div class="muted">última consulta</div></div></header><nav class="nav" id="nav"><button data-g="g1" style="--ac:#5aa9ff">🎯 Planifica</button><button data-g="g2" style="--ac:#43d19e">🚦 Veredicto</button><button data-g="g3" style="--ac:#f5c85b">🕐 Detalle</button><button data-g="g4" style="--ac:#b58cff">🧭 Fiabilidad</button><button data-g="g5" style="--ac:#ff9d5c">🎒 Prepárate</button></nav>
 
-<div id="offB"></div><section class="card"><h2>📍 Localización</h2><div class="muted" style="margin-bottom:10px">Busca cualquier pueblo, ciudad o paraje.</div>
+<div id="offB"></div><div class="grp" id="g1" style="--ac:#5aa9ff"><div class="gh"><span class="gn">1</span><div><div class="gt">🎯 Planifica</div><div class="muted">Lugar, actividad y fecha</div></div><span class="gc">▾</span></div><div class="gb"><section class="card"><h2>📍 Localización</h2><div class="muted" style="margin-bottom:10px">Busca cualquier pueblo, ciudad o paraje.</div>
 <div class="row"><input id="pIn" placeholder="Ej.: Caín, Salamanca, Picos de Europa…"><button class="btn btn-p" id="pGo">Buscar</button><button class="btn btn-s" id="pGeo">🎯 Mi ubicación</button></div>
 <div id="pRes" style="margin-top:10px;display:grid;gap:7px"></div>
 <div class="row" style="margin-top:12px"><button class="btn btn-s" id="favAdd">⭐ Guardar sitio</button><button class="btn btn-s" id="favCmp">📊 Comparar favoritos</button></div>
-<div class="row" id="favList" style="margin-top:8px"></div><div id="favOut"></div></section>
-
-<section class="card"><h2>🎯 Tu plan</h2><div class="muted" style="margin-bottom:10px">La actividad ajusta los semáforos y la mochila.</div>
-<div class="row"><label class="muted" for="act">Actividad</label><select id="act"></select><label class="muted" for="dur">Duración</label><select id="dur"></select><button class="btn btn-s" id="share">🔗 Copiar enlace</button></div></section>
-
-<section class="card"><h2>📅 Día elegido</h2><div class="muted" style="margin-bottom:10px">Cualquier fecha dentro de los próximos 30 días.</div>
+<div class="row" id="favList" style="margin-top:8px"></div><div id="favOut"></div></section><section class="card"><h2>🎯 Tu plan</h2><div class="muted" style="margin-bottom:10px">La actividad ajusta los semáforos y la mochila.</div>
+<div class="row"><label class="muted" for="act">Actividad</label><select id="act"></select><label class="muted" for="dur">Duración</label><select id="dur"></select><button class="btn btn-s" id="share">🔗 Copiar enlace</button></div></section><section class="card"><h2>📅 Día elegido</h2><div class="muted" style="margin-bottom:10px">Cualquier fecha dentro de los próximos 30 días.</div>
 <div class="row"><input type="date" id="rDate" style="max-width:260px"><button class="btn btn-p" id="refBtn">Actualizar</button></div>
-<div class="muted" id="dInfo" style="margin-top:10px"></div><div id="gStat"></div></section>
-
-<section class="card"><h2>🚦 Resumen de la jornada</h2><div class="muted" style="margin-bottom:12px">Se genera cada vez que se actualiza la página.</div><div id="brief"></div><div id="planOut" style="margin-top:12px"></div></section>
-
-<section><div class="g3" id="dayGrid"></div></section>
-
-<section class="card"><h2>🧭 Comparación de modelos</h2><div class="g3" id="mGrid" style="margin-top:10px"></div>
+<div class="muted" id="dInfo" style="margin-top:10px"></div><div id="gStat"></div></section></div></div><div class="grp" id="g2" style="--ac:#43d19e"><div class="gh"><span class="gn">2</span><div><div class="gt">🚦 Veredicto</div><div class="muted">Semáforo y resumen de la jornada</div></div><span class="gc">▾</span></div><div class="gb"><section class="card"><h2>🚦 Resumen de la jornada</h2><div class="muted" style="margin-bottom:12px">Se genera cada vez que se actualiza la página.</div><div id="brief"></div><div id="planOut" style="margin-top:12px"></div></section><section><div class="g3" id="dayGrid"></div></section></div></div><div class="grp" id="g3" style="--ac:#f5c85b"><div class="gh"><span class="gn">3</span><div><div class="gt">🕐 Detalle</div><div class="muted">Horas y mejores días</div></div><span class="gc">▾</span></div><div class="gb"><section class="card"><h2>🕐 Tiempo por horas</h2><div class="muted" id="hLoc"></div>
+<div class="row" style="margin:10px 0"><label class="muted" for="dep">Hora de salida:</label><select id="dep"></select></div>
+<div class="strip" id="hStrip"></div><div class="sub" id="dRes" style="margin-top:12px"></div></section><section class="card"><h2>📆 ¿Qué día me conviene?</h2><div class="muted" style="margin-bottom:10px">Próximos 15 días según tu actividad. Toca un día para verlo entero; fines de semana resaltados.</div><div class="strip" id="weekStrip"></div></section></div></div><div class="grp" id="g4" style="--ac:#b58cff"><div class="gh"><span class="gn">4</span><div><div class="gt">🧭 Fiabilidad</div><div class="muted">Modelos, AEMET y evolución</div></div><span class="gc">▾</span></div><div class="gb"><section class="card"><h2>🧭 Comparación de modelos</h2><div class="g2" id="mGrid" style="margin-top:10px"></div>
 <div class="sub" style="margin-top:14px"><div class="muted">NIVEL DE CONSENSO</div>
 <div class="row" style="justify-content:space-between"><div class="big" id="cLevel">—</div><div class="big"><span id="cScore">—</span> %</div></div>
 <div class="bar"><div id="cFill"></div></div><div class="muted">BAJO &lt;55 · MEDIO 55–79 · ALTO ≥80</div>
-<div id="cPills"></div><p class="muted" id="cExp"></p></div></section>
-
-<section class="card"><h2>🕐 Tiempo por horas</h2><div class="muted" id="hLoc"></div>
-<div class="row" style="margin:10px 0"><label class="muted" for="dep">Hora de salida:</label><select id="dep"></select></div>
-<div class="strip" id="hStrip"></div><div class="sub" id="dRes" style="margin-top:12px"></div></section>
-
-<section class="card"><h2>📆 ¿Qué día me conviene?</h2><div class="muted" style="margin-bottom:10px">Próximos 15 días según tu actividad. Toca un día para verlo entero; fines de semana resaltados.</div><div class="strip" id="weekStrip"></div></section>
-
-<section class="card"><h2>📈 Evolución de la previsión de lluvia</h2>
-<div class="row" style="justify-content:space-between"><div class="muted" id="hText"></div>
-<div class="row"><button class="btn" id="hSave">💾 Guardar esta consulta</button><button class="btn btn-s btn-d" id="hClear">Borrar historial</button></div></div>
-<div class="chart" id="hChart"></div></section>
-
-<section class="card"><div class="row" style="justify-content:space-between"><div><h2>🇪🇸 AEMET</h2>
+<div id="cPills"></div><p class="muted" id="cExp"></p></div></section><section class="card"><div class="row" style="justify-content:space-between"><div><h2>🇪🇸 AEMET</h2>
 <div class="muted" id="aIntro">Municipios AEMET más cercanos a la localización elegida.</div></div><button class="btn btn-s" id="aTest">Probar AEMET</button></div>
 <div class="row" style="margin:12px 0"><input type="password" id="aKey" placeholder="API Key de AEMET OpenData"><button class="btn btn-p" id="aSave">Guardar</button></div>
-<div class="g2" id="aGrid"></div></section>
-
-<section class="card" id="sumSec"><h2>📲 Resumen para llevar y compartir</h2>
+<div class="g2" id="aGrid"></div></section><section class="card"><h2>📈 Evolución de la previsión de lluvia</h2>
+<div class="row" style="justify-content:space-between"><div class="muted" id="hText"></div>
+<div class="row"><button class="btn" id="hSave">💾 Guardar esta consulta</button><button class="btn btn-s btn-d" id="hClear">Borrar historial</button></div></div>
+<div class="chart" id="hChart"></div></section></div></div><div class="grp" id="g5" style="--ac:#ff9d5c"><div class="gh"><span class="gn">5</span><div><div class="gt">🎒 Prepárate</div><div class="muted">Qué llevar, Plan B, resumen y enlaces</div></div><span class="gc">▾</span></div><div class="gb"><section class="card"><h2>🎒 Qué llevar</h2><div class="muted" style="margin-bottom:10px">Se conserva en este móvil.</div><div id="chk"></div>
+<div class="row" style="justify-content:space-between"><span class="muted" id="chkN"></span><button class="btn btn-s" id="unchk">Desmarcar todo</button></div></section><section class="card"><h2>🧭 Plan B</h2><div id="planB"></div></section><section class="card" id="sumSec"><h2>📲 Resumen para llevar y compartir</h2>
 <div class="muted" style="margin-bottom:10px">Guarda como PDF o comparte por WhatsApp antes de entrar en zonas sin cobertura.</div>
-<div id="sumText"></div><div class="row" style="margin-top:12px"><button class="btn btn-p" id="prt">▤ Guardar resumen / PDF</button><button class="btn" id="wa">↗ WhatsApp</button></div></section>
-
-<section class="card"><h2>🎒 Mochila</h2><div class="muted" style="margin-bottom:10px">Se conserva en este móvil.</div><div id="chk"></div>
-<div class="row" style="justify-content:space-between"><span class="muted" id="chkN"></span><button class="btn btn-s" id="unchk">Desmarcar todo</button></div></section>
-
-<section class="card"><h2>🧭 Plan B</h2><div id="planB"></div></section>
-
-<section class="card"><h2>🔗 Enlaces oficiales</h2><div class="links" style="margin-top:10px">
+<div id="sumText"></div><div class="row" style="margin-top:12px"><button class="btn btn-p" id="prt">▤ Guardar resumen / PDF</button><button class="btn" id="wa">↗ WhatsApp</button></div></section><section class="card"><h2>🔗 Enlaces oficiales</h2><div class="links" style="margin-top:10px">
 <a target="_blank" href="https://www.aemet.es/es/eltiempo/prediccion/montana"><strong>AEMET montaña</strong><span>Predicción de montaña</span></a>
 <a target="_blank" href="https://www.aemet.es/es/eltiempo/observacion/radar"><strong>AEMET radar</strong><span>Precipitación observada</span></a>
 <a target="_blank" href="https://www.aemet.es/es/eltiempo/prediccion/avisos"><strong>AEMET avisos</strong><span>Fenómenos adversos</span></a>
 <a target="_blank" href="https://www.miteco.gob.es/es/parques-nacionales-oapn/"><strong>MITECO</strong><span>Parques Nacionales</span></a>
-<a target="_blank" href="https://www.dgt.es/conoce-el-estado-del-trafico/informacion-e-incidencias-de-trafico/"><strong>DGT</strong><span>Estado de carreteras</span></a></div></section>
-</div>
+<a target="_blank" href="https://www.dgt.es/conoce-el-estado-del-trafico/informacion-e-incidencias-de-trafico/"><strong>DGT</strong><span>Estado de carreteras</span></a></div></section></div></div></div>
 <footer>Datos de Open-Meteo y AEMET. Los modelos tienen distinta resolución; el terreno puede diferir de lo previsto. Es una ayuda para planificar y no sustituye los avisos oficiales ni el criterio de montaña.</footer>
 
 <script>
@@ -187,24 +169,32 @@ function renderModels(){
   (v?`<div class="vals"><div><small>Lluvia</small><strong>${mm(v.rain)}</strong></div><div><small>Máx.</small><strong>${temp(v.max)}</strong></div><div><small>Rachas</small><strong>${kmh(v.gust)}</strong></div></div>
   <div class="muted" style="margin-top:10px">${emoji(v.code)} ${esc(wdesc(v.code))} · prob. ${pct(v.prob)}</div>`:`<div class="muted" style="margin-top:14px">${esc(r?.error||"No hay datos.")}</div>`);
   g.appendChild(c)}
+ {const a=aemetDay(),c=document.createElement("div");c.className="sub";
+  c.innerHTML=`<div class="row" style="justify-content:space-between"><div><strong>AEMET</strong><div class="muted">${a?esc(a.name):"OpenData · municipio"}</div></div><span class="pill ${a?"ok":"bad"}" style="margin:0">${a?"✓ DATOS":"⚠ SIN DATOS"}</span></div>`+
+  (a?`<div class="vals"><div><small>Prob. lluvia</small><strong>${pct(a.rain)}</strong></div><div><small>Máx.</small><strong>${temp(a.max)}</strong></div><div><small>Rachas</small><strong>${kmh(a.gust)}</strong></div></div><div class="muted" style="margin-top:10px">${esc(a.sky||"")}</div>`
+  :`<div class="muted" style="margin-top:14px">${aKey()?"AEMET cubre unos 7 días y solo España.":"Introduce tu API Key de AEMET para incluirla en el consenso."}</div>`);g.appendChild(c)}
  renderConsensus()}
 function consensus(){
- const vals=Object.keys(MODELS).map(k=>({model:k,...daily(W[k],sel)||{}})).filter(v=>v.date);
+ const vals=Object.keys(MODELS).map(k=>({model:k,...daily(W[k],sel)||{}})).filter(v=>v.date),ae=aemetDay();
+ if(ae)vals.push({model:"aemet",date:sel,max:ae.max,min:ae.min,rain:null,prob:ae.rain,gust:ae.gust});
  if(vals.length<2)return{score:null,vals};
  const rg=k=>{const n=vals.map(v=>v[k]).filter(x=>x!=null);return n.length<2?0:Math.max(...n)-Math.min(...n)};
- const rr=rg("rain"),tr=rg("max"),wr=rg("gust");
- let s=Math.max(0,100-rr*7)*.5+Math.max(0,100-tr*10)*.3+Math.max(0,100-wr*1.5)*.2;
+ const rr=rg("rain"),tr=rg("max"),wr=rg("gust"),pr=rg("prob"),np=vals.filter(v=>v.prob!=null).length;
+ const sr=np>=2?(Math.max(0,100-rr*7)+Math.max(0,100-pr*1.2))/2:Math.max(0,100-rr*7);
+ let s=sr*.5+Math.max(0,100-tr*10)*.3+Math.max(0,100-wr*1.5)*.2;
  if(vals.length===2)s*=.92;s=Math.round(Math.max(0,Math.min(100,s)));
- return{score:s,level:s>=80?"ALTO":s>=55?"MEDIO":"BAJO",vals,rr,tr,wr}}
+ return{score:s,level:s>=80?"ALTO":s>=55?"MEDIO":"BAJO",vals,rr,tr,wr,pr,np}}
 function renderConsensus(){
  const c=consensus(),P=$("cPills");P.innerHTML="";
  Object.keys(MODELS).forEach(k=>{const a=c.vals.some(v=>v.model===k);P.innerHTML+=`<span class="pill ${a?"ok":"bad"}">${MODELS[k].name} ${a?"✓":"—"}</span>`});
+ {const a=c.vals.some(v=>v.model==="aemet");P.innerHTML+=`<span class="pill ${a?"ok":"bad"}">AEMET ${a?"✓":"—"}</span>`}
  if(c.score===null){$("cLevel").textContent="SIN DATOS";$("cScore").textContent="—";$("cFill").style.width="0";$("cExp").textContent="Hacen falta al menos dos modelos disponibles.";return}
  const col={ALTO:"var(--green)",MEDIO:"var(--yellow)",BAJO:"var(--red)"}[c.level];
  $("cLevel").textContent=c.level;$("cLevel").style.color=col;$("cScore").textContent=c.score;
  $("cFill").style.width=c.score+"%";$("cFill").style.background=col;
  const t={ALTO:"Los modelos coinciden bastante; no implica que el tiempo sea bueno.",MEDIO:"Hay diferencias apreciables; vuelve a consultar antes de salir.",BAJO:"Diferencias importantes; hay mucha incertidumbre."}[c.level];
- $("cExp").textContent=`${t} Diferencia: lluvia ${c.rr.toFixed(1)} mm, temperatura ${c.tr.toFixed(1)} °C, rachas ${Math.round(c.wr)} km/h.`}
+ const hasA=c.vals.some(v=>v.model==="aemet");
+ $("cExp").textContent=`${t} Diferencia: lluvia ${c.rr.toFixed(1)} mm${c.np>1?`, prob. lluvia ${Math.round(c.pr)} pts`:""}, temperatura ${c.tr.toFixed(1)} °C, rachas ${Math.round(c.wr)} km/h.`+(hasA?"":" AEMET no entra en el cálculo (falta API Key o no hay datos para esa fecha).")}
 
 /* ---------- Horas ---------- */
 function prepDep(){const s=$("dep");for(let h=0;h<=23;h++)s.add(new Option(pad(h)+":00",h,false,h===8));s.onchange=renderHourly}
@@ -302,12 +292,14 @@ async function aData(id,force){
 function aParse(data,date){
  const root=Array.isArray(data)?data[0]:data,day=(root?.prediccion?.dia||[]).find(d=>String(d.fecha||"").slice(0,10)===date);if(!day)return null;
  const p=(day.probPrecipitacion||[]).map(x=>num(x.value)).filter(x=>x!==null);
- return{max:num(day.temperatura?.maxima),min:num(day.temperatura?.minima),rain:p.length?Math.max(...p):null}}
+ const g=(day.rachaMax||[]).map(x=>x.value===""?null:num(x.value)).filter(x=>x!==null),sk=(day.estadoCielo||[]).find(x=>x.periodo==="00-24")||(day.estadoCielo||[])[0];
+ return{max:num(day.temperatura?.maxima),min:num(day.temperatura?.minima),rain:p.length?Math.max(...p):null,gust:g.length?Math.max(...g):null,sky:sk?.descripcion||""}}
+const aemetDay=()=>{const r=refs.find(r=>r.p&&r.pd===sel);return r?{...r.p,name:r.name}:null};
 async function aOne(i,force){
  const r=refs[i];if(!r)return;aSt(i,"⏳ Consultando AEMET…");
  try{
   const res=await aData(r.id,force),p=aParse(res.data,sel);
-  if(p)r.p=p;
+  if(p){r.p=p;r.pd=sel}
   if(!p){aSt(i,"AEMET no tiene datos para "+fd(sel)+" (suele cubrir unos 7 días).","warn");return}
   $("aMx"+i).textContent=temp(p.max);$("aMn"+i).textContent=temp(p.min);$("aRn"+i).textContent=p.rain!=null?pct(p.rain):"—";
   aSt(i,res.stale?"⚠ AEMET no responde; última respuesta guardada.":res.cached?"✓ Datos recientes guardados.":"✓ AEMET actualizado.",res.stale?"warn":"ok")
@@ -321,7 +313,7 @@ async function loadAemet(force=false){
   refs=(await munis()).map(m=>({id:m[0],name:m[1],dist:dkm(loc.lat,loc.lon,m[2],m[3])})).sort((a,b)=>a.dist-b.dist).slice(0,2);aCards()
  }catch(e){aSt(0,e.message==="429"?"⚠ AEMET limita las consultas (429).":e.message==="API_KEY_INVALIDA"?"⚠ API Key rechazada.":"⚠ No se pudo cargar el listado: "+e.message,"error");return}
  if(refs[0]?.dist>40)$("aIntro").textContent+=` Atención: el más cercano está a ${refs[0].dist.toFixed(0)} km; es una referencia poco precisa.`;
- await aOne(0,force);await aOne(1,force)}
+ await aOne(0,force);await aOne(1,force);renderModels()}
 
 /* ---------- Resumen ---------- */
 const LV={g:["🟢","Verde"],y:["🟡","Amarillo"],r:["🔴","Rojo"],n:["⚪","Sin datos"]};
@@ -376,13 +368,14 @@ function summary(){brief();plan();planB();
  t+=d?`🌡 ${temp(d.min)} – ${temp(d.max)}\n🌧 Lluvia: ${mm(d.rain)}\n☔ Probabilidad: ${pct(d.prob)}\n💨 Rachas: ${kmh(d.gust)}\n${emoji(d.code)} ${wdesc(d.code)}\n\n`:"Sin datos meteorológicos.\n\n";
  t+=`CONSENSO DE MODELOS\n${c.score!==null?c.level+" · "+c.score+"%":"No calculable"}\n\nMODELOS\n`;
  for(const k of Object.keys(MODELS)){const v=daily(W[k],sel);t+=v?`${MODELS[k].name}: ${mm(v.rain)} lluvia · ${temp(v.max)} máx. · ${kmh(v.gust)} rachas\n`:`${MODELS[k].name}: sin datos\n`}
- t+=`\nAEMET: ${refs.map(r=>r.name).join(" · ")||"no disponible"}\n\n⚠️ Ayuda para planificar; no sustituye los avisos oficiales ni el criterio de montaña.`;
+ t+=`\nAEMET: ${(()=>{const a=aemetDay();return a?`${a.name} · ${temp(a.min)}–${temp(a.max)} · ☔ ${pct(a.rain)} · 💨 ${kmh(a.gust)}`:refs.map(r=>r.name).join(" · ")||"no disponible"})()}\n\n⚠️ Ayuda para planificar; no sustituye los avisos oficiales ni el criterio de montaña.`;
  $("sumText").textContent=t}
 
 /* ---------- Mochila ---------- */
 const BP=[["Calzado de montaña con buen agarre","Siempre"],["Frontal y pilas nuevas","Siempre; posibles retrasos"],["Agua y comida energética","Siempre; no contar con fuentes"],["Capas térmicas y abrigo","Reforzado si la sensación térmica baja de 12 °C"],["Impermeable y funda de mochila","Si hay lluvia probable o terreno mojado"],["Cortavientos","Con rachas desde 25 km/h"],["Bastones","Útiles con terreno húmedo"],["Móvil cargado, batería externa y mapa offline","Siempre; la cobertura puede fallar"],["Botiquín pequeño y manta térmica","Siempre"],["Plan comunicado a alguien y hora límite de regreso","Siempre"]];
 const chkKey=()=>"cares_backpack_v5_"+act;
-const IT=()=>{const a=P();return[...BP.filter((_,i)=>a.keep.includes(i)),...a.x]};
+const BPL={2:["Agua y algo de comer","Según la duración"],3:["Capa de abrigo","Si refresca"],4:["Impermeable o paraguas","Si hay lluvia probable"],7:["Móvil cargado","Siempre"],8:["Botiquín pequeño","Siempre"]},LIGHT=["playa","bano","kayak","pesca","running"];
+const IT=()=>{const a=P(),lt=LIGHT.includes(act)||["Deporte","Aire libre","Ciudad y carretera"].includes(a.g);return[...BP.map((x,i)=>lt&&BPL[i]?BPL[i]:x).filter((_,i)=>a.keep.includes(i)),...a.x]};
 function renderChk(){
  const c=$("chk"),ch=jget(chkKey(),{}),it=IT();c.innerHTML="";
  it.forEach((x,i)=>{const d=document.createElement("div");d.className="chk";
@@ -400,7 +393,7 @@ function dInfo(){
 async function refresh(){
  sel=$("rDate").value;if(!sel)return;localStorage.setItem(K.date,sel);
  const b=$("refBtn");b.textContent="Actualizando…";b.disabled=true;document.body.classList.add("loading");
- dInfo();offTs=null;
+ dInfo();offTs=null;refs=[];aCards();
  [W,sun]=await Promise.all([fetchAll(sel),fetchDaily(loc.lat,loc.lon,sel,sel).then(a=>a[0]||null)]);
  if(!Object.values(W).some(x=>x?.ok)){const sn=jget(K.snap,{})[snapKey()];if(sn){W=sn.W;sun=sn.sun||null;offTs=sn.ts}}else saveSnap();
  renderModels();renderDays();renderHourly();gStat();renderHist();summary();renderWeek();hashUpd();
@@ -411,12 +404,29 @@ async function refresh(){
 /* ---------- v3: actividad, semana, luz, favoritos, offline, enlace ---------- */
 K.snap="weather_snap_v1";
 const ACT={
- senderismo:{n:"Senderismo",i:"🥾",w:[30,50],r:[1,4],d:[2,10],hi:[28,34],lo:[3,-2],dur:6,keep:[0,1,2,3,4,5,6,7,8,9],x:[]},
- ciclismo:{n:"Ciclismo",i:"🚴",w:[25,40],r:[.5,2],d:[1,6],hi:[30,36],lo:[5,0],dur:4,keep:[2,3,4,5,7,8,9],x:[["Casco y luces","Siempre"],["Cámara de repuesto y kit de pinchazos","Siempre"],["Guantes y gafas","Con sol o viento"]]},
- running:{n:"Running",i:"🏃",w:[35,55],r:[1,4],d:[2,10],hi:[24,30],lo:[0,-5],dur:1.5,keep:[2,3,4,5,7,9],x:[["Ropa técnica transpirable","Según temperatura"],["Gorra o gorro","Sol o frío"],["Reflectante o frontal","Si corres al amanecer o anochecer"]]},
- playa:{n:"Playa",i:"🏖️",w:[25,40],r:[.2,1],d:[.5,3],hi:[34,38],lo:null,mlo:[24,20],dur:4,keep:[2,7],x:[["Protector solar y gorra","Siempre"],["Sombrilla o toldo","Con sol fuerte"],["Toalla y ropa de cambio","Siempre"],["Calzado de agua","Rocas o cantos"]]},
- escalada:{n:"Escalada",i:"🧗",w:[25,40],r:[.2,1],d:[.5,3],hi:[30,35],lo:[3,-2],dur:5,keep:[0,1,2,3,4,5,7,8,9],x:[["Casco, arnés y material","Siempre"],["Cuerdas y cintas revisadas","Antes de salir"],["Magnesio y calzado de escalada","Siempre"]]},
- picnic:{n:"Picnic",i:"🧺",w:[30,45],r:[.5,2],d:[1,5],hi:[30,35],lo:[8,3],dur:3,keep:[2,4,5,7],x:[["Manta y mesa plegable","Siempre"],["Bolsas para residuos","Siempre"],["Nevera con hielo","Con calor"]]}};
+ senderismo:{g:"Montaña",n:"Senderismo",i:"🥾",w:[30,50],r:[1,4],d:[2,10],hi:[28,34],lo:[3,-2],dur:6,keep:[0,1,2,3,4,5,6,7,8,9],x:[]},
+ ciclismo:{g:"Bici y carrera",n:"Ciclismo",i:"🚴",w:[25,40],r:[.5,2],d:[1,6],hi:[30,36],lo:[5,0],dur:4,keep:[2,3,4,5,7,8,9],x:[["Casco y luces","Siempre"],["Cámara de repuesto y kit de pinchazos","Siempre"],["Guantes y gafas","Con sol o viento"]]},
+ running:{g:"Bici y carrera",n:"Running",i:"🏃",w:[35,55],r:[1,4],d:[2,10],hi:[24,30],lo:[0,-5],dur:1.5,keep:[2,3,4,5,7,9],x:[["Ropa técnica transpirable","Según temperatura"],["Gorra o gorro","Sol o frío"],["Reflectante o frontal","Si corres al amanecer o anochecer"]]},
+ playa:{g:"Agua",n:"Playa",i:"🏖️",w:[25,40],r:[.2,1],d:[.5,3],hi:[34,38],lo:null,mlo:[24,20],dur:4,keep:[2,7],x:[["Protector solar y gorra","Siempre"],["Sombrilla o toldo","Con sol fuerte"],["Toalla y ropa de cambio","Siempre"],["Calzado de agua","Rocas o cantos"]]},
+ escalada:{g:"Montaña",n:"Escalada",i:"🧗",w:[25,40],r:[.2,1],d:[.5,3],hi:[30,35],lo:[3,-2],dur:5,keep:[0,1,2,3,4,5,7,8,9],x:[["Casco, arnés y material","Siempre"],["Cuerdas y cintas revisadas","Antes de salir"],["Magnesio y calzado de escalada","Siempre"]]},
+ picnic:{g:"Aire libre",n:"Picnic",i:"🧺",w:[30,45],r:[.5,2],d:[1,5],hi:[30,35],lo:[8,3],dur:3,keep:[2,4,5,7],x:[["Manta y mesa plegable","Siempre"],["Bolsas para residuos","Siempre"],["Nevera con hielo","Con calor"]]},
+ alpinismo:{g:"Montaña",n:"Alta montaña y ferratas",i:"⛰️",w:[25,40],r:[.5,3],d:[1,6],hi:[26,31],lo:[0,-5],dur:8,keep:[0,1,2,3,4,5,6,7,8,9],x:[["Casco, arnés y disipador","Ferratas y trepadas"],["Crampones y piolet","Si hay nieve o hielo"],["Gafas de sol y crema","Altitud"]]},
+ barranquismo:{g:"Agua",n:"Barranquismo",i:"💦",w:[30,50],r:[.2,1],d:[.5,3],hi:[34,38],lo:null,mlo:[22,18],dur:5,keep:[0,2,7,8,9],x:[["Neopreno, casco y arnés","Siempre"],["Cuerdas y descensor","Según el barranco"],["Bolsa estanca","Móvil y llaves"]]},
+ mtb:{g:"Bici y carrera",n:"BTT / MTB",i:"🚵",w:[30,45],r:[.5,2],d:[1,5],hi:[30,36],lo:[3,-2],dur:3,keep:[2,3,4,5,7,8,9],x:[["Casco y guantes","Siempre"],["Cámara, bomba y multiherramienta","Siempre"],["Gafas","Polvo o barro"]]},
+ bano:{g:"Agua",n:"Baño en río o piscina natural",i:"🏊",w:[30,45],r:[.5,2],d:[1,5],hi:[34,38],lo:null,mlo:[25,21],dur:3,keep:[2,7,8],x:[["Calzado de agua","Rocas resbaladizas"],["Toalla y ropa seca","Siempre"],["Protector solar","Siempre"]]},
+ kayak:{g:"Agua",n:"Kayak, paddle surf y piragüismo",i:"🛶",w:[20,35],r:[1,4],d:[2,8],hi:[32,37],lo:null,mlo:[20,15],dur:3,keep:[2,7,8,9],x:[["Chaleco salvavidas","Siempre"],["Bolsa estanca","Móvil y llaves"],["Neopreno o ropa de agua","Agua fría"]]},
+ pesca:{g:"Agua",n:"Pesca",i:"🎣",w:[25,40],r:[1,4],d:[2,8],hi:[32,37],lo:[0,-4],dur:6,keep:[2,3,4,5,7],x:[["Licencia y permisos","Según zona"],["Botas o vadeadores","Siempre"],["Silla y sombrilla","Jornada larga"]]},
+ barbacoa:{g:"Aire libre",n:"Barbacoa",i:"🍖",w:[20,35],r:[.5,2],d:[1,5],hi:[33,38],lo:[8,3],dur:4,keep:[2,4,7],x:[["Comprobar si se permite hacer fuego","Riesgo de incendio"],["Extintor o cubo de agua","Siempre"],["Carbón y utensilios","Siempre"]]},
+ foto:{g:"Aire libre",n:"Fotografía y fauna",i:"📷",w:[35,55],r:[.5,2],d:[1,5],hi:[32,38],lo:[0,-5],dur:3,keep:[2,3,4,7],x:[["Cámara, objetivos y baterías","Siempre"],["Funda de lluvia","Si hay lluvia probable"],["Trípode","Luz baja"]]},
+ dron:{g:"Aire libre",n:"Dron",i:"🛸",w:[18,28],r:[.2,1],d:[.5,2],hi:[35,40],lo:[2,-3],dur:1,keep:[7],x:[["Baterías cargadas","Con frío se agotan antes"],["Normativa y zonas permitidas","Antes de volar"],["Hélices de repuesto","Siempre"]]},
+ parapente:{g:"Aire libre",n:"Parapente y vuelo libre",i:"🪂",w:[15,25],r:[.1,.5],d:[.3,1],hi:[33,37],lo:[2,-3],dur:3,keep:[3,7,8,9],x:[["Equipo y reserva revisados","Antes de salir"],["Consultar escuela o piloto local","Viento en altura"]]},
+ evento:{g:"Aire libre",n:"Evento al aire libre",i:"🎪",w:[30,45],r:[.5,2],d:[1,5],hi:[32,37],lo:[8,3],dur:5,keep:[2,4,7],x:[["Carpa o zona cubierta","Si hay lluvia probable"],["Sombra y agua","Con calor"],["Abrigo","Por la tarde-noche"]]},
+ tenis:{g:"Deporte",n:"Tenis y pádel",i:"🎾",w:[20,35],r:[.2,1],d:[.5,2],hi:[32,37],lo:[5,0],mlo:[12,8],dur:2,keep:[2,5,7],x:[["Raquetas y pelotas","Siempre"],["Ropa de recambio","Siempre"],["Gorra y protector solar","Con sol"]]},
+ golf:{g:"Deporte",n:"Golf",i:"⛳",w:[30,45],r:[.5,2],d:[1,5],hi:[33,37],lo:[3,-2],mlo:[10,6],dur:5,keep:[2,4,5,7],x:[["Paraguas y chubasquero","Si hay lluvia probable"],["Guantes y gorra","Siempre"],["Reserva de salida","Antes de ir"]]},
+ futbol:{g:"Deporte",n:"Fútbol y deportes de equipo",i:"⚽",w:[40,60],r:[2,6],d:[4,12],hi:[31,36],lo:[2,-3],dur:2,keep:[2,4,7],x:[["Calzado adecuado al césped","Siempre"],["Ropa de recambio","Siempre"]]},
+ turismo:{g:"Ciudad y carretera",n:"Turismo urbano",i:"🏙️",w:[40,60],r:[2,6],d:[4,12],hi:[33,38],lo:[0,-5],dur:4,keep:[2,4,7],x:[["Calzado cómodo","Siempre"],["Paraguas plegable","Si hay lluvia probable"],["Entradas y reservas","Antes de salir"]]},
+ moto:{g:"Ciudad y carretera",n:"Moto",i:"🏍️",w:[30,45],r:[.2,1],d:[.5,3],hi:[32,37],lo:[5,1],dur:4,keep:[2,3,4,5,7,8],x:[["Casco, guantes y botas homologados","Siempre"],["Chaqueta impermeable","Si hay lluvia probable"],["Kit antipinchazos","Siempre"]]},
+ coche:{g:"Ciudad y carretera",n:"Viaje en coche",i:"🚗",w:[50,70],r:[3,8],d:[10,25],hi:[38,42],lo:[1,-3],dur:4,keep:[2,7,8],x:[["Estado de carreteras (DGT)","Antes de salir"],["Neumáticos y niveles revisados","Siempre"],["Chaleco, triángulos y cargador","Siempre"]]}};
 let act=localStorage.getItem("weather_act_v1");if(!ACT[act])act="senderismo";
 let durH=Number(localStorage.getItem("weather_dur_v1"))||ACT[act].dur,sun=null,offTs=null;
 const P=()=>ACT[act];
@@ -441,16 +451,23 @@ async function renderWeek(){
   e.onclick=()=>{$("rDate").value=d.date;refresh();window.scrollTo({top:0,behavior:"smooth"})};box.appendChild(e)})}
 const hm=x=>{const h=Math.floor(x),m=Math.round((x-h)*60);return m===60?pad(h+1)+":00":pad(h)+":"+pad(m)};
 const tdec=s=>{const m=String(s||"").match(/T(\d\d):(\d\d)/);return m?+m[1]+ +m[2]/60:null};
+/* franja de inicio por actividad: [más pronto, ideal desde, ideal hasta, más tarde] */
+const PREF={senderismo:[7,8,10,14],alpinismo:[5,6,7,11],ciclismo:[7,9,10,15],running:[7,8,10,19],playa:[10,11,13,16],escalada:[8,9,11,15],picnic:[11,12,13,16],barranquismo:[9,10,11,14],mtb:[8,9,11,15],bano:[11,12,15,17],kayak:[9,10,12,16],pesca:[6,7,9,17],barbacoa:[12,13,14,17],foto:[6,7,9,18],dron:[8,10,14,17],parapente:[10,11,13,15],evento:[11,12,18,19],tenis:[8,10,12,19],golf:[7,8,10,14],futbol:[9,10,12,19],turismo:[9,10,11,16],moto:[9,10,12,16],coche:[6,7,9,17]};
 function plan(){
  const o=$("planOut");if(!H||!sun){o.innerHTML='<div class="muted">🌅 Sin datos de luz solar para esta fecha.</div>';return}
  const r=tdec(sun.rise),s=tdec(sun.set);if(r==null||s==null){o.innerHTML="";return}
- const hr={};H.time.forEach((t,i)=>{if(t.startsWith(sel))hr[+t.slice(11,13)]={rain:H.precipitation?.[i]??0,gust:H.wind_gusts_10m?.[i]??0}});
- const lim=s-.5;let b=null;
- for(let h=Math.ceil(r);h+durH<=lim;h++){let mr=0,mg=0,tot=0;
-  for(let k=h;k<h+durH;k++){const x=hr[Math.floor(k)];if(x){mr=Math.max(mr,x.rain);mg=Math.max(mg,x.gust);tot+=x.rain}}
-  const l=worst([lv(mr,P().r),lv(mg,P().w)]),sc="gyr".indexOf(l)*1000+tot*10+mg/10;if(!b||sc<b.sc)b={h,l,tot,mg,sc}}
+ const hr={};H.time.forEach((t,i)=>{if(t.startsWith(sel))hr[+t.slice(11,13)]={rain:H.precipitation?.[i]??0,gust:H.wind_gusts_10m?.[i]??0,t:H.temperature_2m?.[i]}});
+ const lim=s-.5,A=P(),pf=PREF[act]||[0,8,18,23],cand=[];
+ for(let h=Math.ceil(r);h+durH<=lim;h++){let mr=0,mg=0,tot=0;const tt=[];
+  for(let k=h;k<h+durH;k++){const x=hr[Math.floor(k)];if(x){mr=Math.max(mr,x.rain);mg=Math.max(mg,x.gust);tot+=x.rain;if(x.t!=null)tt.push(x.t)}}
+  const ta=avg(tt),l=worst([lv(mr,A.r),lv(mg,A.w),tt.length?tempLight(Math.max(...tt),Math.min(...tt)):"g"]);
+  let cp=0;if(ta!=null){const hot=A.hi[0]-5;if(ta>hot)cp+=(ta-hot)*5;if(A.lo&&ta<A.lo[0]+4)cp+=(A.lo[0]+4-ta)*4;if(A.mlo&&ta<A.mlo[0]+4)cp+=(A.mlo[0]+4-ta)*4}
+  const tp=h<pf[1]?(pf[1]-h)*8:h>pf[2]?(h-pf[2])*8:0,out=h<pf[0]||h>pf[3]?200:0;
+  cand.push({h,l,tot,mg,ta,tp,sc:"gyr".indexOf(l)*1000+out+tp+cp+tot*10+mg/10})}
+ cand.sort((x,y)=>x.sc-y.sc);const b=cand[0];
+ const alt=b?cand.filter(x=>x!==b&&x.l===b.l&&x.sc-b.sc<40).slice(0,3).sort((x,y)=>x.h-y.h):[];
  o.innerHTML=`<div class="g3"><div class="ind"><div class="t">🌅 Amanecer</div><div class="big">${hm(r)}</div></div><div class="ind"><div class="t">🌇 Atardecer</div><div class="big">${hm(s)}</div></div><div class="ind"><div class="t">⏳ Luz disponible</div><div class="big">${(s-r).toFixed(1)} h</div></div></div>`+
- (b?`<div class="ind l-${b.l}" style="margin-top:10px"><div class="t">${LV[b.l][0]} Mejor salida para ${durH} h de ${ACT[act].n.toLowerCase()}: ${hm(b.h)}</div><div class="muted">Vuelta a las ${hm(b.h+durH)} · límite de regreso con luz: ${hm(lim)} · lluvia acumulada ${mm(b.tot)} · racha máx. ${kmh(b.mg)}</div><button class="btn btn-s" id="useBest" style="margin-top:8px">Usar esta salida</button></div>`
+ (b?`<div class="ind l-${b.l}" style="margin-top:10px"><div class="t">${LV[b.l][0]} Mejor salida para ${durH} h de ${A.n.toLowerCase()}: ${hm(b.h)}</div><div class="muted">${b.tp===0?"Dentro de la franja habitual para esta actividad":"Fuera de la franja habitual, pero es la que mejor encaja con el tiempo"} · vuelta a las ${hm(b.h+durH)} · límite de regreso con luz: ${hm(lim)} · lluvia ${mm(b.tot)} · racha máx. ${kmh(b.mg)}${b.ta!=null?" · temp. media "+temp(b.ta):""}</div>${alt.length?`<div class="muted" style="margin-top:4px">También válido: ${alt.map(x=>hm(x.h)).join(" · ")}</div>`:""}<button class="btn btn-s" id="useBest" style="margin-top:8px">Usar esta salida</button></div>`
  :`<div class="ind l-r" style="margin-top:10px"><div class="t">🔴 No cabe una actividad de ${durH} h con luz</div><div class="muted">Hay ${(s-r).toFixed(1)} h de luz. Acorta la duración o lleva frontal.</div></div>`);
  const u=$("useBest");if(u)u.onclick=()=>{$("dep").value=b.h;renderHourly()}}
 const POI={};
@@ -525,8 +542,15 @@ const ALTB={
  playa:{s:"Paseo por la orilla o un rato corto de playa en la mejor franja del día.",a:"Piscina cubierta, museo, acuario o paseo por el casco urbano.",r:"Ten un refugio cerca; con tormenta, sal del agua y no te quedes bajo árboles.",w:"Evita el baño con viento fuerte, busca zonas resguardadas y respeta la bandera del mar."},
  escalada:{s:"Sector con vías cortas y acceso rápido, cerca del coche.",a:"Rocódromo cubierto o día de descanso.",r:"No escales con roca mojada: tarda horas en secar tras la lluvia.",w:"Evita vías expuestas y reuniones colgadas; atención a la caída de piedras."},
  picnic:{s:"Cambia a un parque cercano con zona cubierta o cobertizo.",a:"Comida en un restaurante o en casa, y paseo si despeja.",r:"Elige mesas cubiertas; lleva plástico para el suelo y un refugio cerca.",w:"Evita arbolado grande y elige un sitio resguardado."}};
+const ALTBG={
+ "Montaña":{s:"Itinerario corto y fácil de acortar, con retirada clara.",a:"Visita de valle o pueblo; deja la salida de altura para otro día.",r:"Roca mojada y barro: evita trepadas y ferratas con lluvia o tormenta.",w:"Evita crestas y aristas; con rachas fuertes, aplaza."},
+ "Bici y carrera":{s:"Vuelta corta cerca de casa, con opción de cortar.",a:"Rodillo, cinta, fuerza o movilidad en interior.",r:"Firme mojado: frena antes y evita bajadas técnicas y barro.",w:"Elige tramos resguardados y planifica la vuelta con el viento a favor."},
+ "Agua":{s:"Actividad más corta y cerca de la orilla o de la salida.",a:"Piscina cubierta, spa o plan cultural.",r:"Tras lluvia los cauces suben rápido: no entres con riesgo de crecida ni con tormenta.",w:"Evita zonas abiertas y embalses con viento; ten una salida cercana."},
+ "Aire libre":{s:"Versión corta en la mejor franja del día, cerca del coche.",a:"Plan bajo techo y repetir otro día.",r:"Ten refugio cubierto cerca y protege el equipo.",w:"Busca zonas resguardadas y evita arbolado alto."},
+ "Deporte":{s:"Sesión más corta en la mejor franja del día.",a:"Instalación cubierta, gimnasio o entrenamiento en casa.",r:"Superficie mojada: resbala y aumenta el riesgo de lesión.",w:"Con viento fuerte cambia el juego; mejor pista cubierta o resguardada."},
+ "Ciudad y carretera":{s:"Acorta el plan y sal en la mejor franja horaria.",a:"Museos, centros comerciales o planes bajo techo.",r:"Reduce la velocidad, aumenta la distancia de seguridad y evita zonas anegadas.",w:"Atención a rachas en puentes y tramos abiertos; la moto es más vulnerable."}};
 function planB(){
- const o=$("planB"),L=LASTL,a=ALTB[act];
+ const o=$("planB"),L=LASTL,a=ALTB[act]||ALTBG[ACT[act].g];
  if(!L){o.innerHTML='<div class="muted">Se generará cuando haya datos de la jornada.</div>';return}
  const head={g:"El tiempo acompaña: no hace falta activarlo, pero conviene tenerlo pensado.",y:"Hay puntos amarillos: deja el Plan B preparado y fija una hora o un lugar de decisión.",r:"Recomendado activar el Plan B o posponer la actividad.",n:"Sin datos suficientes: ten un plan alternativo."}[L.all];
  const tips=[];
@@ -562,7 +586,7 @@ function readHash(){
   if(ACT[p.get("a")])act=p.get("a");if(+p.get("h"))durH=+p.get("h");if(p.get("d"))localStorage.setItem(K.date,p.get("d"))}catch{}}
 function setupPlan(){
  const a=$("act"),d=$("dur");
- Object.entries(ACT).forEach(([k,v])=>a.add(new Option(v.i+" "+v.n,k,false,k===act)));
+ const gs={};Object.entries(ACT).forEach(([k,v])=>{const g=v.g||"Otras";if(!gs[g]){gs[g]=document.createElement("optgroup");gs[g].label=g}gs[g].appendChild(new Option(v.i+" "+v.n,k,false,k===act))});Object.values(gs).forEach(o=>a.appendChild(o));a.value=act;
  const hs=[1,1.5,2,3,4,5,6,7,8,10,12];if(!hs.includes(durH))hs.push(durH);hs.sort((x,y)=>x-y).forEach(h=>d.add(new Option(h+" h",h)));
  d.value=durH;
  a.onchange=()=>{act=a.value;localStorage.setItem("weather_act_v1",act);durH=ACT[act].dur;d.value=durH;localStorage.setItem("weather_dur_v1",durH);renderChk();renderWeek();summary();hashUpd()};
@@ -586,10 +610,8 @@ function init(){readHash();
  renderChk();aCards();renderHist();dInfo();
  const sn=jget(K.snap,{})[snapKey()];if(sn){W=sn.W;sun=sn.sun||null;renderModels();renderDays();renderHourly();summary()}
  refresh()}
+document.querySelectorAll(".gh").forEach(h=>h.onclick=()=>h.parentElement.classList.toggle("col"));
+const nb=document.querySelectorAll("#nav button");nb.forEach(b=>b.onclick=()=>{const g=$(b.dataset.g);g.classList.remove("col");g.scrollIntoView({behavior:"smooth",block:"start"})});
+if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)nb.forEach(b=>b.classList.toggle("on",b.dataset.g===e.target.id))}),{rootMargin:"-30% 0px -60% 0px"});document.querySelectorAll(".grp").forEach(g=>io.observe(g))}
 init();
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
-  }
-</script>
 </script></body></html>
